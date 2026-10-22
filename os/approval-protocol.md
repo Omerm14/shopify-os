@@ -4,11 +4,11 @@ How agents ask the Owner for permission, and how the answer becomes training dat
 
 ## Where
 
-Linear team **EMP** (rename to fit). Every action that the autonomy matrix does not allow becomes an issue.
+Linear team **SHOP**. Every action that the autonomy matrix does not allow becomes an issue.
 
 | Field | Value |
 |-------|-------|
-| Title | `[ACT][<agent>][R<class>] <verb> <object>` — e.g. `[ACT][media-buyer][R2] Scale ad set "Hook-B" 150→180 ILS/day` |
+| Title | `[ACT][<agent>][R<class>] <verb> <object>` — e.g. `[ACT][media-buyer][R2] Scale ad set "Hook-B" 40→48 USD/day` |
 | Label | `needs-approval`, plus the agent label (`agent:media-buyer`) |
 | Body | The action request JSON (`schemas/action-request.schema.json`) followed by a 3-line human summary |
 | Due | Now + `expires_in_hours` (default 24) |

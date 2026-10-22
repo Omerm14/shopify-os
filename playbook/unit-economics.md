@@ -16,7 +16,7 @@ breakeven_roas   = net_price / contribution
 gross_margin     = (net_price − landed_cogs) / net_price
 ```
 
-**Landed COGS** = supplier price + freight to Israel + customs duty + import VAT if not reclaimed + local handling, per unit. VAT charged to customers is excluded from `net_price`.
+**Landed COGS** = supplier price + freight to the destination market + customs duty and tariffs (US: check current China tariffs; de minimis no longer applies) + import VAT if not reclaimed (EU) + local handling, per unit. VAT charged to customers is excluded from `net_price`.
 
 ## Health bands per order
 
@@ -35,7 +35,7 @@ gross_margin     = (net_price − landed_cogs) / net_price
 | Advanced | 399 | 299 | 2.5% + 30¢ | 0.6% |
 | Plus | from ~2,300 | contract | negotiated | 0.2% |
 
-If the store runs on a local Israeli gateway, `fee_rate = gateway_rate + extra_fee`. Finance re-checks the cheapest plan monthly (stage task Y6).
+If the store runs on an outside gateway, `fee_rate = gateway_rate + extra_fee`. Finance re-checks the cheapest plan monthly (stage task Y6).
 
 ## Growth model assumptions (used in forecasts)
 

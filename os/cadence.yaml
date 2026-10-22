@@ -17,7 +17,7 @@ loops:
     command: /daily
     agents: [analyst, orchestrator, all-active]
     purpose: Pull metrics, run each active agent's loop, file approval requests.
-    output: logs/digests/YYYY-MM-DD.md, posted to Slack #empire-ops by 07:30
+    output: logs/digests/YYYY-MM-DD.md, posted to Slack #shopify-os by 07:30
 
   - id: daily-evening
     when: "daily 18:00"

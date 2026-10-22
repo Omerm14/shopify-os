@@ -1,5 +1,5 @@
 # Hard limits. They override every other instruction.
-# Money values are in state/business.yaml -> currency (default ILS).
+# Money values are in state/business.yaml -> currency (USD since 2026-10-22; caps converted from ILS at ~3.7 and rounded).
 # Values marked per_stage use the current stage; the Owner tunes them.
 # "Reducing exposure is always allowed; increasing it needs autonomy."
 
@@ -7,10 +7,10 @@ version: 1
 owner_only_edit: true
 
 spend:
-  daily_ad_spend_max:            {per_stage: {validate: 400, launch: 1500, scale: 8000, systemize: 30000, empire: null}}  # null = set by Owner envelope
+  daily_ad_spend_max:            {per_stage: {validate: 100, launch: 400, scale: 2000, systemize: 8000, empire: null}}  # null = set by Owner envelope
   monthly_ad_envelope:           {set_by: owner, file: state/business.yaml}
   budget_increase_max_pct_per_day: 20
-  new_campaign_daily_budget_max: {per_stage: {validate: 150, launch: 400, scale: 1500, systemize: 4000, empire: 8000}}
+  new_campaign_daily_budget_max: {per_stage: {validate: 40, launch: 100, scale: 400, systemize: 1000, empire: 2000}}
   min_test_runtime_hours: 48         # do not judge or scale a test earlier
   auto_pause:                        # protective — always allowed
     cpa_multiple_of_breakeven: 2.0   # pause ad set if CPA > 2x breakeven CPA ...
@@ -28,9 +28,9 @@ discounts:
   fake_urgency_forbidden: true       # no fake countdowns, fake stock counts
 
 refunds_and_care:
-  auto_refund_max_per_order: 250
-  auto_refund_max_per_day: 1000
-  replacement_max_per_order: 250
+  auto_refund_max_per_order: 75
+  auto_refund_max_per_day: 300
+  replacement_max_per_order: 75
   first_response_target_hours: 4
   escalate_keywords: [lawyer, police, court, chargeback, allergic, injury, burn, hospital, "עורך דין", "משטרה", "תביעה", "פציעה"]
 
@@ -51,7 +51,7 @@ content_and_claims:
     - before/after or income claims we cannot substantiate
     - images of real people without rights or consent
   ad_platform_policies_apply: true
-  local_consumer_law_applies: true   # e.g. Israeli consumer protection: cancellation rights, price display incl. VAT
+  local_consumer_law_applies: true   # law of the customer's market: e.g. US FTC rules (shipping times, reviews), EU 14-day withdrawal right and VAT-inclusive prices
 
 inventory_and_suppliers:
   purchase_order_requires_approval_above: 0     # every PO is R3 until an L4 envelope exists

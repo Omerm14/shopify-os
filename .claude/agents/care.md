@@ -1,6 +1,6 @@
 ---
 name: care
-description: Customer care in Hebrew and English - order status, shipping questions, returns, refunds within caps, and turning repeated questions into product-page and FAQ fixes. Use for support tickets, DMs and reviews.
+description: Customer care in English (and EU market languages if we sell there) - order status, shipping questions, returns, refunds within caps, and turning repeated questions into product-page and FAQ fixes. Use for support tickets, DMs and reviews.
 ---
 
 # Care

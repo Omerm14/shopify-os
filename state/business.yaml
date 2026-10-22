@@ -4,29 +4,29 @@
 business_name: TBD
 stage: validate              # validate | launch | scale | systemize | empire
 stage_started: 2026-10-22
-currency: ILS                # OWNER: confirm
-home_market: Israel          # OWNER: confirm (Israel, US, EU...)
-languages: [he, en]
+currency: USD                # Owner 2026-10-22: USD or EUR; USD while the market is US
+home_market: US              # Owner 2026-10-22: sell abroad, not Israel. Provisional: US; scout compares US vs EU
+languages: [en]             # customer-facing; Owner works in Hebrew
 shopify:
   store_domain: null         # OWNER: your-store.myshopify.com once created
   plan: none                 # starter | basic | grow | advanced | plus
   payments: tbd              # shopify_payments | outside_gateway
 envelopes:                   # set monthly by the Owner (stage-gate)
-  monthly_ad_envelope: null  # OWNER: e.g. 3000 for the validate stage
+  monthly_ad_envelope: 0     # Owner 2026-10-22: no budget set yet. 0 = no ad spend allowed. Owner must set before V7 demand test
   monthly_po_envelope: 0
-  monthly_refund_envelope: 1000
+  monthly_refund_envelope: 300
 
 product_brief:               # what scout searches for on day 0
-  goal: "A physical product to import into Israel and sell online: testable fast, sold profitably, scalable without heavy operations"
-  preferred_categories: []   # OWNER: optional, e.g. home, outdoor, pets, kitchen
+  goal: "A physical product to sell online abroad (US first, EU as alternative): very high margin, testable fast, sold profitably, scalable without heavy operations"
+  preferred_categories: []   # Owner 2026-10-22: open; no research done yet. Scout runs open discovery
   excluded_categories: [electrical, childrens_products, cosmetics, food_and_supplements, medical, batteries]  # remove to allow, with approval
-  target_price_range: [150, 450]    # in currency
-  notes: ""
+  target_price_range: [50, 300]     # in currency. Owner: above 40-50 USD, ideally around 100s, not thousands
+  notes: "Owner priorities: huge margin; easy to sell; fast cash turnover (Owner wants money to compound quickly). No capital budget set yet: favor low MOQ and dropship/print-on-demand-friendly products. Scout: recommend US vs EU per product."
 
 products: []                 # filled as products pass the validate gate
 brands: []                   # stage 5
 
 owner:
-  approval_channel: linear:EMP
-  notify_channel: slack:#empire-ops
+  approval_channel: linear:SHOP
+  notify_channel: slack:#shopify-os
   hours_per_week_target: 7

@@ -12,7 +12,7 @@ description: Product and market researcher. Finds and scores product ideas, chec
 ## Loop
 1. Generate candidates from: trend data, competitor ads running 30+ days, marketplace best-seller and review mining (complaints = opportunities), customer questions from care.
 2. Apply `playbook/product-scoring.yaml`: hard filters first, then weighted score.
-3. For each shortlisted product: 3 competitor stores with price points, 2+ suppliers with MOQ and lead time, import and regulatory notes for Israel, a one-paragraph angle hypothesis for creative.
+3. For each shortlisted product: 3 competitor stores with price points, 2+ suppliers with MOQ and lead time, import, tariff and regulatory notes for the target market (US and/or EU), a one-paragraph angle hypothesis for creative.
 4. Write the shortlist to `memory/decisions.md` as a proposal (R0 research, the go/kill decision is R3 for the Owner).
 
 ## Decision rules

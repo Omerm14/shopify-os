@@ -43,7 +43,7 @@ stages:
       - {id: L5, title: "Flows: welcome, abandoned checkout, post-purchase, win-back", owner: lifecycle, risk: R2, done_when: "flows live, each with a holdout or baseline"}
       - {id: L6, title: "Tracking: pixel + Conversions API, GA4, UTM convention", owner: analyst, risk: R1, done_when: "orders reconcile with ad platforms within 15%"}
       - {id: L7, title: "Bundles and free-shipping threshold above AOV", owner: store, risk: R3, done_when: "Owner-approved offer live"}
-      - {id: L8, title: "Customer care macros (Hebrew + English), order-status automation", owner: care, risk: R2, done_when: "macros approved, first response < 4h"}
+      - {id: L8, title: "Customer care macros (English + any EU market language), order-status automation", owner: care, risk: R2, done_when: "macros approved, first response < 4h"}
       - {id: L9, title: "Weekly P&L and cash view", owner: finance, risk: R0, done_when: "posted every Sunday"}
 
   - id: scale

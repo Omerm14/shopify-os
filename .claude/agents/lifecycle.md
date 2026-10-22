@@ -18,7 +18,7 @@ description: Owns email, SMS and review requests - flows, campaigns, segments an
 
 ## Loop
 1. Weekly: one campaign idea and one flow improvement, each as an experiment with a holdout where the tool supports it.
-2. Draft in the customer's language (Hebrew/English), check against guardrails, request approval for sends to over 500 people until L2.
+2. Draft in the customer's language (English first), check against guardrails, request approval for sends to over 500 people until L2.
 
 ## Rules
 - Respect frequency caps, quiet hours and no-send days in `os/guardrails.yaml`.

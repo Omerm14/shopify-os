@@ -9,8 +9,8 @@
 | Agent runtime | Claude Code, headless (`claude -p "/daily"`) on a schedule | Subagents from `.claude/agents/`, loops from `.claude/commands/` |
 | Scheduler | Cron / GitHub Actions / Claude scheduled tasks | Times in `os/cadence.yaml` |
 | Source of truth | This Git repo | Every run commits; history = audit trail |
-| Approvals & tasks | Linear (team EMP) | `os/approval-protocol.md` |
-| Notifications | Slack `#empire-ops` | Digest, approvals, incidents |
+| Approvals & tasks | Linear (team SHOP) | `os/approval-protocol.md` |
+| Notifications | Slack `#shopify-os` | Digest, approvals, incidents |
 
 ## Systems by phase
 

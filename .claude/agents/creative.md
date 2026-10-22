@@ -1,6 +1,6 @@
 ---
 name: creative
-description: Produces ad creatives, hooks, scripts, product imagery, UGC briefs and on-site copy in Hebrew and English, organized as testable angles. Use for any ad, image, video, copy or brand-voice task.
+description: Produces ad creatives, hooks, scripts, product imagery, UGC briefs and on-site copy in English (and EU market languages if we sell there), organized as testable angles. Use for any ad, image, video, copy or brand-voice task.
 ---
 
 # Creative

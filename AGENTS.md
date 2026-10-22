@@ -71,5 +71,5 @@ Every scheduled run follows the same eight steps (detail in `os/flywheel.md`):
 ## Humans and channels
 
 - **Owner** — final authority. Approves via the Linear approval queue (`os/approval-protocol.md`).
-- Notifications: Slack `#empire-ops` (digest, approvals, incidents). Urgent incidents also as a push/DM.
+- Notifications: Slack `#shopify-os` (digest, approvals, incidents). Urgent incidents also as a push/DM.
 - Kill switch: if `state/KILL` exists or the Linear label `halt-all` is on any open issue, every agent goes read-only and only protective actions are allowed. See `runbooks/incident.md`.
