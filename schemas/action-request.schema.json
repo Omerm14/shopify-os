@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ActionRequest",
+  "description": "An action an agent wants to take that its autonomy level does not allow alone. Posted to the Linear approval queue.",
+  "type": "object",
+  "required": ["id", "agent", "risk_class", "action", "why", "expected_effect", "cost", "rollback", "guardrail_check", "expires_in_hours"],
+  "properties": {
+    "id": {"type": "string", "pattern": "^ACT-[0-9]{8}-[a-z-]+-[0-9]+$"},
+    "agent": {"type": "string", "enum": ["orchestrator", "analyst", "auditor", "scout", "creative", "media-buyer", "store", "lifecycle", "care", "ops", "finance"]},
+    "risk_class": {"type": "string", "enum": ["R1", "R2", "R3"]},
+    "action": {"type": "string", "description": "Exact change, specific enough to execute without interpretation"},
+    "target": {"type": "string", "description": "System and object, e.g. meta:adset:123 or shopify:product:handle"},
+    "why": {"type": "string", "description": "The gap or metric this addresses, with numbers"},
+    "experiment_id": {"type": ["string", "null"]},
+    "expected_effect": {"type": "string", "description": "Metric, from, to, within how long"},
+    "cost": {"type": "object", "properties": {"amount": {"type": "number"}, "currency": {"type": "string"}, "max_loss": {"type": "number"}}, "required": ["amount", "currency"]},
+    "rollback": {"type": "string", "description": "How to undo, and how fast"},
+    "guardrail_check": {"type": "array", "items": {"type": "string"}, "description": "Each relevant guardrail and why the action complies"},
+    "alternatives_considered": {"type": "array", "items": {"type": "string"}},
+    "confidence": {"type": "string", "enum": ["low", "medium", "high"]},
+    "expires_in_hours": {"type": "integer", "minimum": 1, "maximum": 168, "default": 24}
+  }
+}

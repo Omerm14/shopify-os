@@ -1,0 +1,102 @@
+# The five stages, machine-readable. Agents read only the current stage
+# (state/business.yaml -> stage). Exit gates use metric ids from playbook/metrics.yaml.
+# risk = R0-R4 (os/autonomy.md). owner = agent name in .claude/agents/.
+
+stages:
+
+  - id: validate
+    order: 1
+    milestone: First 10 paid orders on one product
+    goal: Prove strangers will pay for one product before building a brand around it.
+    active_agents: [orchestrator, analyst, auditor, scout, creative, media-buyer, store, finance]
+    exit_gate:   # all must hold over the last 14 days
+      - {metric: paid_orders_total, op: ">=", value: 10}
+      - {metric: gross_margin, op: ">=", value: 0.65}
+      - {metric: cpa, op: "<=", value: breakeven_cpa}
+      - {metric: atc_rate, op: ">=", value: 0.05}
+    tasks:
+      - {id: V1, title: "Score 10+ product ideas with playbook/product-scoring.yaml", owner: scout, risk: R0, done_when: "shortlist of 3 in memory/decisions.md with scores"}
+      - {id: V2, title: "Check regulatory and import constraints for the shortlist", owner: scout, risk: R0, done_when: "each shortlisted product marked clear / needs-approval / blocked"}
+      - {id: V3, title: "Request quotes and samples from 2-3 suppliers per product", owner: ops, risk: R3, done_when: "Owner-approved sample orders placed"}
+      - {id: V4, title: "Build landed-cost and unit-economics sheet per product", owner: finance, risk: R0, done_when: "breakeven CPA and ROAS computed per playbook/unit-economics.md"}
+      - {id: V5, title: "Build one-product test page on a free theme", owner: store, risk: R2, done_when: "page live, pixel firing, checkout tested"}
+      - {id: V6, title: "Produce 3-5 creative angles (hook, problem, demo, social proof, offer)", owner: creative, risk: R1, done_when: "creatives approved and uploaded unpublished"}
+      - {id: V7, title: "Run demand test within guardrails daily cap", owner: media-buyer, risk: R2, done_when: "48h+ per ad set, kill/keep decision logged"}
+      - {id: V8, title: "Decide: go, iterate or kill the product", owner: orchestrator, risk: R3, done_when: "Owner decision in memory/decisions.md"}
+
+  - id: launch
+    order: 2
+    milestone: 10k USD-equivalent revenue per month
+    goal: A store that converts visitors and remembers every buyer.
+    active_agents: [orchestrator, analyst, auditor, scout, creative, media-buyer, store, lifecycle, care, ops, finance]
+    exit_gate:
+      - {metric: revenue_net_30d, op: ">=", value: "10000 USD equivalent"}
+      - {metric: cvr, op: ">=", value: 0.02}
+      - {metric: owned_channel_revenue_share, op: ">=", value: 0.15}
+      - {metric: refund_rate, op: "<=", value: 0.05}
+      - {metric: contribution_margin_after_ads, op: ">", value: 0}
+    tasks:
+      - {id: L1, title: "Brand basics in theme: logo, palette, type, voice doc", owner: store, risk: R2, done_when: "brand doc in memory/, theme updated"}
+      - {id: L2, title: "Product page: 6+ images, demo video, benefit copy, FAQ, shipping and returns", owner: store, risk: R2, done_when: "PDP checklist passes"}
+      - {id: L3, title: "Product data ready for AI shopping channels: titles, structured attributes, GTIN, 3+ images, clear policies", owner: store, risk: R2, done_when: "catalog checklist passes for all live SKUs"}
+      - {id: L4, title: "Reviews app + automated review requests", owner: lifecycle, risk: R2, done_when: "request sent N days after delivery"}
+      - {id: L5, title: "Flows: welcome, abandoned checkout, post-purchase, win-back", owner: lifecycle, risk: R2, done_when: "flows live, each with a holdout or baseline"}
+      - {id: L6, title: "Tracking: pixel + Conversions API, GA4, UTM convention", owner: analyst, risk: R1, done_when: "orders reconcile with ad platforms within 15%"}
+      - {id: L7, title: "Bundles and free-shipping threshold above AOV", owner: store, risk: R3, done_when: "Owner-approved offer live"}
+      - {id: L8, title: "Customer care macros (Hebrew + English), order-status automation", owner: care, risk: R2, done_when: "macros approved, first response < 4h"}
+      - {id: L9, title: "Weekly P&L and cash view", owner: finance, risk: R0, done_when: "posted every Sunday"}
+
+  - id: scale
+    order: 3
+    milestone: 100k USD-equivalent revenue per month
+    goal: Turn ad spend into a predictable machine.
+    active_agents: all
+    exit_gate:
+      - {metric: revenue_net_30d, op: ">=", value: "100000 USD equivalent"}
+      - {metric: mer, op: ">=", value: 3.0}
+      - {metric: repeat_rate_90d, op: ">=", value: 0.20}
+      - {metric: cac_payback_days, op: "<=", value: 60}
+    tasks:
+      - {id: S1, title: "Creative pipeline: 5-10 new creatives per week", owner: creative, risk: R1, done_when: "4 consecutive weeks at target"}
+      - {id: S2, title: "Add Google Shopping/PMax and TikTok once Meta is profitable", owner: media-buyer, risk: R3, done_when: "each channel tested with Owner-approved budget"}
+      - {id: S3, title: "AOV program: upsells, bundles, post-purchase offers", owner: store, risk: R2, done_when: "AOV +20% vs launch"}
+      - {id: S4, title: "2-3 line extensions for repeat buyers", owner: scout, risk: R3, done_when: "Owner-approved launch"}
+      - {id: S5, title: "MER-based budget allocation, weekly", owner: media-buyer, risk: R2, done_when: "allocation note in weekly review"}
+      - {id: S6, title: "Second supplier and 60 days of stock cover", owner: ops, risk: R3, done_when: "backup supplier approved, cover >= 60 days"}
+
+  - id: systemize
+    order: 4
+    milestone: 500k USD-equivalent revenue per month
+    goal: The business runs without the Owner in every loop.
+    active_agents: all
+    exit_gate:
+      - {metric: contribution_margin_after_ads_pct, op: ">=", value: 0.25}
+      - {metric: stockout_days_30d, op: "==", value: 0}
+      - {metric: cs_first_response_hours, op: "<=", value: 4}
+      - {metric: owner_hours_per_week, op: "<=", value: 10}
+    tasks:
+      - {id: Y1, title: "Move fulfilment to a 3PL", owner: ops, risk: R3, done_when: "Owner-signed contract, migration done"}
+      - {id: Y2, title: "Reorder points and monthly demand forecast", owner: ops, risk: R0, done_when: "forecast error tracked"}
+      - {id: Y3, title: "SOPs for every recurring human task; hire care/ops help", owner: orchestrator, risk: R4, done_when: "Owner hires; SOPs in runbooks/"}
+      - {id: Y4, title: "Shopify Flow automations for tagging, alerts, routing", owner: store, risk: R2, done_when: "flows documented in runbooks/"}
+      - {id: Y5, title: "13-week cash forecast and monthly close", owner: finance, risk: R0, done_when: "forecast vs actual within 10%"}
+      - {id: Y6, title: "Re-check Shopify plan breakeven", owner: finance, risk: R3, done_when: "recommendation logged"}
+
+  - id: empire
+    order: 5
+    milestone: 1M+ USD-equivalent per month across brands, markets and channels
+    goal: Reuse the machine across brands, markets and channels.
+    active_agents: all
+    exit_gate: null   # ongoing
+    health_checks:
+      - {metric: profitable_brands, op: ">=", value: 2}
+      - {metric: largest_brand_profit_share, op: "<", value: 0.60}
+      - {metric: revenue_outside_home_share, op: ">=", value: 0.30}
+      - {metric: cash_runway_months, op: ">=", value: 6}
+    tasks:
+      - {id: E1, title: "International markets with Shopify Markets", owner: store, risk: R3, done_when: "first market live with local pricing"}
+      - {id: E2, title: "Brand #2 on the shared supply chain and creative team", owner: orchestrator, risk: R3, done_when: "brand #2 passes validate gate"}
+      - {id: E3, title: "Channels: Amazon, wholesale, retail", owner: ops, risk: R3, done_when: "one channel profitable"}
+      - {id: E4, title: "Evaluate Shopify Plus for expansion stores", owner: finance, risk: R3, done_when: "recommendation logged"}
+      - {id: E5, title: "Acquisition pipeline of small Shopify brands", owner: scout, risk: R4, done_when: "Owner decides"}
+      - {id: E6, title: "Fork this repo per brand; shared core in a parent repo", owner: orchestrator, risk: R3, done_when: "brand repos inherit os/ from core"}

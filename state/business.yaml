@@ -1,0 +1,32 @@
+# Current truth about the business. Orchestrator updates after Owner approvals.
+# Fields marked OWNER must be filled by the Owner before /day-0 can proceed.
+
+business_name: TBD
+stage: validate              # validate | launch | scale | systemize | empire
+stage_started: 2026-10-22
+currency: ILS                # OWNER: confirm
+home_market: Israel          # OWNER: confirm (Israel, US, EU...)
+languages: [he, en]
+shopify:
+  store_domain: null         # OWNER: your-store.myshopify.com once created
+  plan: none                 # starter | basic | grow | advanced | plus
+  payments: tbd              # shopify_payments | outside_gateway
+envelopes:                   # set monthly by the Owner (stage-gate)
+  monthly_ad_envelope: null  # OWNER: e.g. 3000 for the validate stage
+  monthly_po_envelope: 0
+  monthly_refund_envelope: 1000
+
+product_brief:               # what scout searches for on day 0
+  goal: "A physical product to import into Israel and sell online: testable fast, sold profitably, scalable without heavy operations"
+  preferred_categories: []   # OWNER: optional, e.g. home, outdoor, pets, kitchen
+  excluded_categories: [electrical, childrens_products, cosmetics, food_and_supplements, medical, batteries]  # remove to allow, with approval
+  target_price_range: [150, 450]    # in currency
+  notes: ""
+
+products: []                 # filled as products pass the validate gate
+brands: []                   # stage 5
+
+owner:
+  approval_channel: linear:EMP
+  notify_channel: slack:#empire-ops
+  hours_per_week_target: 7

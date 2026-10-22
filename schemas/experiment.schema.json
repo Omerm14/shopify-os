@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Experiment",
+  "description": "Front matter of every file in memory/experiments/.",
+  "type": "object",
+  "required": ["id", "agent", "status", "hypothesis", "metric", "baseline", "target", "window_days", "ice_r", "risk_class", "rollback", "opened"],
+  "properties": {
+    "id": {"type": "string", "pattern": "^EXP-[0-9]{8}-[a-z-]+-[0-9]+$"},
+    "agent": {"type": "string"},
+    "status": {"type": "string", "enum": ["proposed", "running", "won", "lost", "inconclusive", "cancelled"]},
+    "hypothesis": {"type": "string", "description": "If we X, metric Y moves from A to B within T, because Z"},
+    "metric": {"type": "string", "description": "Metric id from playbook/metrics.yaml"},
+    "baseline": {"type": "number"},
+    "target": {"type": "number"},
+    "min_sample": {"type": "string", "description": "e.g. 100 clicks per variant, 48h"},
+    "window_days": {"type": "integer", "minimum": 1, "maximum": 14},
+    "ice_r": {
+      "type": "object",
+      "properties": {"impact": {"type": "integer", "minimum": 1, "maximum": 5}, "confidence": {"type": "integer", "minimum": 1, "maximum": 5}, "effort": {"type": "integer", "minimum": 1, "maximum": 5}, "risk": {"type": "integer", "minimum": 1, "maximum": 5}},
+      "required": ["impact", "confidence", "effort", "risk"]
+    },
+    "risk_class": {"type": "string", "enum": ["R0", "R1", "R2", "R3"]},
+    "budget": {"type": "number"},
+    "rollback": {"type": "string"},
+    "opened": {"type": "string", "format": "date"},
+    "closed": {"type": ["string", "null"], "format": "date"},
+    "result_value": {"type": ["number", "null"]},
+    "learning": {"type": ["string", "null"]},
+    "tags": {"type": "array", "items": {"type": "string"}}
+  }
+}

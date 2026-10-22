@@ -1,0 +1,46 @@
+# When each loop runs. Times are Asia/Jerusalem. Week starts Sunday.
+# Each entry maps to a scheduled headless Claude Code run of the named command.
+# Agents not active in the current stage (playbook/stages.yaml -> active_agents) are skipped.
+
+timezone: Asia/Jerusalem
+
+loops:
+  - id: guard-hourly
+    when: "every hour, 08:00-23:00"
+    command: /daily --guard-only
+    agents: [media-buyer, care]
+    purpose: Auto-pause runaway ads, triage urgent tickets, check kill-switch triggers.
+    from_stage: launch
+
+  - id: daily-morning
+    when: "daily 06:30"
+    command: /daily
+    agents: [analyst, orchestrator, all-active]
+    purpose: Pull metrics, run each active agent's loop, file approval requests.
+    output: logs/digests/YYYY-MM-DD.md, posted to Slack #empire-ops by 07:30
+
+  - id: daily-evening
+    when: "daily 18:00"
+    command: /daily --tests-only
+    agents: [media-buyer, creative, store]
+    purpose: Read test results, kill losers, queue next creatives.
+    from_stage: validate
+
+  - id: weekly-review
+    when: "Sunday 08:00"
+    command: /weekly
+    agents: [analyst, auditor, orchestrator, finance]
+    purpose: KPI trend vs stage gate, experiment readout, autonomy scoring, next week's plan.
+    output: logs/weekly/YYYY-Www.md; Owner review meeting 30-60 min
+
+  - id: monthly-close
+    when: "1st of month 09:00"
+    command: /stage-gate
+    agents: [finance, analyst, auditor, orchestrator]
+    purpose: P&L close, cash forecast, stage-gate check, autonomy promotion proposals, envelopes for next month.
+
+  - id: quarterly-strategy
+    when: "first Sunday of Jan, Apr, Jul, Oct"
+    command: /weekly --quarterly
+    agents: [orchestrator, scout, finance]
+    purpose: Portfolio review, new product/market bets, re-check Shopify channel and agentic settings.

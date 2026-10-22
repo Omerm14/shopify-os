@@ -1,0 +1,56 @@
+# KPI dictionary. The analyst is the only agent that computes these.
+# Everyone else reads logs/metrics/YYYY-MM-DD.json.
+# status bands: green / amber / red. Bands are defaults; the Owner tunes them.
+
+metrics:
+
+  # --- Sales ---
+  revenue_net:        {formula: "gross_sales - discounts - refunds (excl. VAT and shipping charged)", source: shopify, cadence: daily, owner: analyst}
+  revenue_net_30d:    {formula: "sum(revenue_net, last 30 days)", source: derived, cadence: daily}
+  paid_orders_total:  {formula: "count(orders where financial_status in [paid, partially_refunded])", source: shopify, cadence: daily}
+  aov:                {formula: "revenue_net / orders", source: derived, cadence: daily}
+  cvr:                {formula: "orders / sessions", source: shopify, cadence: daily, bands: {green: ">=0.025", amber: "0.015-0.025", red: "<0.015"}}
+  atc_rate:           {formula: "sessions_with_add_to_cart / sessions", source: shopify, cadence: daily, bands: {green: ">=0.06", amber: "0.04-0.06", red: "<0.04"}}
+
+  # --- Acquisition ---
+  ad_spend:           {formula: "sum(spend across ad platforms)", source: [meta, google, tiktok], cadence: daily}
+  ctr:                {formula: "link_clicks / impressions", source: ad_platforms, cadence: daily, bands: {green: ">=0.015", amber: "0.008-0.015", red: "<0.008"}}
+  cpa:                {formula: "ad_spend / platform_attributed_purchases", source: ad_platforms, cadence: daily}
+  cac_new:            {formula: "ad_spend / new_customers (Shopify, not platform)", source: derived, cadence: weekly}
+  mer:                {formula: "revenue_net / ad_spend (blended, all channels)", source: derived, cadence: daily, bands: {green: ">=3", amber: "2-3", red: "<2"}}
+  roas_platform:      {formula: "platform_attributed_revenue / platform_spend", source: ad_platforms, cadence: daily, note: "diagnostic only; decisions use mer and cac_new"}
+
+  # --- Unit economics (see playbook/unit-economics.md) ---
+  gross_margin:                    {formula: "(net_price - landed_cogs) / net_price", source: finance, cadence: weekly}
+  contribution_before_ads:         {formula: "net_price - cogs - shipping - payment_fees - returns_cost", source: finance}
+  breakeven_cpa:                   {formula: "contribution_before_ads per order", source: finance, cadence: weekly}
+  breakeven_roas:                  {formula: "net_price / contribution_before_ads", source: finance, cadence: weekly}
+  contribution_margin_after_ads:   {formula: "sum(contribution_before_ads) - ad_spend", source: finance, cadence: weekly}
+  contribution_margin_after_ads_pct: {formula: "contribution_margin_after_ads / revenue_net", source: finance, cadence: weekly, bands: {green: ">=0.25", amber: "0.10-0.25", red: "<0.10"}}
+
+  # --- Retention ---
+  repeat_rate_90d:        {formula: "customers with 2+ orders within 90 days of first / customers acquired 90-180 days ago", source: shopify, cadence: weekly}
+  ltv_90d:                {formula: "avg contribution per customer in first 90 days", source: derived, cadence: monthly}
+  cac_payback_days:       {formula: "days until cumulative contribution per cohort >= cac_new", source: derived, cadence: monthly}
+  owned_channel_revenue_share: {formula: "revenue attributed to email + SMS / revenue_net", source: [klaviyo, shopify], cadence: weekly}
+
+  # --- Operations & care ---
+  refund_rate:            {formula: "refunded_amount / gross_sales, trailing 30d", source: shopify, cadence: daily, bands: {green: "<0.03", amber: "0.03-0.06", red: ">0.06"}}
+  stockout_days_30d:      {formula: "days any active SKU had 0 sellable units", source: shopify, cadence: daily}
+  days_of_cover:          {formula: "units_on_hand / avg_daily_units_sold_14d", source: shopify, cadence: daily, bands: {green: ">=45", amber: "21-45", red: "<21"}}
+  cs_first_response_hours: {formula: "median hours to first human-quality reply", source: helpdesk, cadence: daily}
+
+  # --- Finance & owner ---
+  cash_on_hand:           {formula: "bank + Shopify balance - committed POs", source: owner_input_then_bank_feed, cadence: weekly}
+  cash_runway_months:     {formula: "cash_on_hand / avg monthly net burn (if profitable: n/a)", source: finance, cadence: monthly}
+  owner_hours_per_week:   {formula: "Owner-reported time in the weekly review", source: owner, cadence: weekly}
+
+  # --- Portfolio (stage 5) ---
+  profitable_brands:          {formula: "count(brands with contribution_margin_after_ads > fixed_costs, trailing 90d)", cadence: monthly}
+  largest_brand_profit_share: {formula: "max(brand profit) / total profit", cadence: monthly}
+  revenue_outside_home_share: {formula: "revenue outside home market or main channel / total", cadence: monthly}
+
+  # --- Agent system ---
+  approval_unchanged_rate: {formula: "proposals approved without edits / proposals decided, last 30", source: state/autonomy.yaml, cadence: weekly, owner: auditor}
+  guardrail_breaches:      {formula: "count(breaches) last 30 days", source: logs/actions.log, cadence: weekly, owner: auditor}
+  experiments_closed_week: {formula: "count(experiments closed this week)", source: memory/experiments, cadence: weekly}

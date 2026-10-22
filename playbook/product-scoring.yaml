@@ -1,0 +1,26 @@
+# Product scoring rubric (used by scout in stage "validate" and for line extensions).
+# Score each criterion 1-5. Hard filters run first: any "block" removes the product.
+
+hard_filters:
+  - {id: margin,      rule: "gross_margin at target price >= 0.65", fail: block}
+  - {id: aov,         rule: "net_price >= 150 ILS (about 40 USD) after shipping", fail: block}
+  - {id: ip,          rule: "no trademark, patent or design-right conflict found", fail: block}
+  - {id: shipping,    rule: "ships in a parcel; not fragile; under 2 kg packed", fail: block}
+  - {id: regulated,   rule: "not in guardrails regulated_categories", fail: needs_owner_approval}   # e.g. Israeli standards / MoH approvals
+  - {id: platform,    rule: "allowed by Meta, Google and TikTok ad policies", fail: block}
+
+criteria:   # weight x score(1-5)
+  - {id: problem,      weight: 3, question: "Does it solve a clear, felt problem or desire someone can show in 3 seconds of video?"}
+  - {id: demand,       weight: 3, question: "Evidence of demand: search trends, competitor ads running 30+ days, marketplace reviews"}
+  - {id: margin_room,  weight: 3, question: "Room above 65% margin for discounts and rising CPA"}
+  - {id: repeat,       weight: 2, question: "Consumable, collectible or part of a range that invites a second order"}
+  - {id: differentiation, weight: 2, question: "Can we be visibly better: bundle, design, localization, service?"}
+  - {id: competition,  weight: 2, question: "Local competition is weak or generic (5 = weak)"}
+  - {id: supply,       weight: 2, question: "2+ capable suppliers, MOQ affordable, lead time under 30 days"}
+  - {id: content,      weight: 1, question: "Easy to film demos and UGC"}
+  - {id: seasonality,  weight: 1, question: "Sells year-round (5) vs one season (1)"}
+
+decision:
+  shortlist_if: "weighted score >= 70% of max and no blocks"
+  max_shortlist: 3
+  output: "memory/decisions.md entry with scores table, evidence links and open questions"

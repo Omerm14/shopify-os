@@ -1,0 +1,18 @@
+# Autonomy level and track record per agent. Auditor updates counters weekly.
+# Only the Owner raises a level; the auditor may lower one (os/autonomy.md §5).
+# counters cover the current level only and reset on level change.
+
+agents:
+  orchestrator: {level: L1, since: 2026-10-22, proposals: 0, approved_unchanged: 0, approved_edited: 0, rejected: 0, expired: 0, rollbacks: 0, breaches: 0}
+  analyst:      {level: L1, since: 2026-10-22, proposals: 0, approved_unchanged: 0, approved_edited: 0, rejected: 0, expired: 0, rollbacks: 0, breaches: 0}
+  auditor:      {level: L0, since: 2026-10-22, note: "permanent L0 on business systems"}
+  scout:        {level: L1, since: 2026-10-22, proposals: 0, approved_unchanged: 0, approved_edited: 0, rejected: 0, expired: 0, rollbacks: 0, breaches: 0}
+  creative:     {level: L1, since: 2026-10-22, proposals: 0, approved_unchanged: 0, approved_edited: 0, rejected: 0, expired: 0, rollbacks: 0, breaches: 0}
+  media-buyer:  {level: L1, since: 2026-10-22, proposals: 0, approved_unchanged: 0, approved_edited: 0, rejected: 0, expired: 0, rollbacks: 0, breaches: 0}
+  store:        {level: L1, since: 2026-10-22, proposals: 0, approved_unchanged: 0, approved_edited: 0, rejected: 0, expired: 0, rollbacks: 0, breaches: 0}
+  lifecycle:    {level: L0, since: 2026-10-22, note: "activates at launch stage"}
+  care:         {level: L0, since: 2026-10-22, note: "activates at launch stage"}
+  ops:          {level: L1, since: 2026-10-22, proposals: 0, approved_unchanged: 0, approved_edited: 0, rejected: 0, expired: 0, rollbacks: 0, breaches: 0}
+  finance:      {level: L1, since: 2026-10-22, proposals: 0, approved_unchanged: 0, approved_edited: 0, rejected: 0, expired: 0, rollbacks: 0, breaches: 0}
+
+envelopes: {}   # L4 envelopes, e.g. {media-buyer: {monthly_budget: 20000, valid_until: 2027-06-30}}
