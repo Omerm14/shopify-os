@@ -1,1 +1,4 @@
 # ISO-time | agent | level | R-class | action | target | reason | rollback | id
+2026-10-22T09:10:00+03:00 | scout | L1 | R0 | load context (read order) | AGENTS.md, state/, os/, playbook/, memory/ | V1 day-0 run; kill switch absent | n/a (read-only) | V1
+2026-10-22T09:15:00+03:00 | scout | L1 | R0 | web research: tariffs, demand, competitors, suppliers for 14 candidates | WebSearch (WebFetch/curl blocked by proxy) | V1 product discovery | n/a (read-only) | V1
+2026-10-22T09:40:00+03:00 | scout | L1 | R0 | append shortlist proposal (2 of 14 pass >=70%) | memory/decisions.md DEC-20261022-3 | V1 done_when: shortlist with scores; go/kill is R3 for Owner | append a correcting entry (append-only) | DEC-20261022-3
