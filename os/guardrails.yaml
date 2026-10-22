@@ -40,7 +40,7 @@ customer_messaging:
   sms_requires_explicit_consent: true
   honor_unsubscribe_immediately: true
   quiet_hours_local: ["21:00", "09:00"]
-  no_sends_on: [shabbat_and_israeli_holidays]   # Owner can change
+  no_sends_on: []   # Owner 2026-10-22: removed Shabbat/Israeli holiday rule
   every_marketing_message_has_unsubscribe: true
 
 content_and_claims:
