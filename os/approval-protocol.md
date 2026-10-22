@@ -9,7 +9,7 @@ Linear team **SHOP**. Every action that the autonomy matrix does not allow becom
 | Field | Value |
 |-------|-------|
 | Title | `[ACT][<agent>][R<class>] <verb> <object>` — e.g. `[ACT][media-buyer][R2] Scale ad set "Hook-B" 40→48 USD/day` |
-| Label | `needs-approval`, plus the agent label (`agent:media-buyer`) |
+| Label | `needs-approval`, plus the agent's label from the `agent` label group (e.g. `agent` → `media-buyer`) |
 | Body | The action request JSON (`schemas/action-request.schema.json`) followed by a 3-line human summary |
 | Due | Now + `expires_in_hours` (default 24) |
 
